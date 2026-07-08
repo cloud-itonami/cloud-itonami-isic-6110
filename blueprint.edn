@@ -1,0 +1,12 @@
+{:itonami.blueprint/id "cloud-itonami-isic-6110"
+ :itonami.blueprint/name "Wired Telecommunications Network Operations"
+ :itonami.blueprint/isic-rev5 "6110"
+ :itonami.blueprint/domain :communication/wired-network-operator
+ :itonami.blueprint/license "AGPL-3.0-or-later"
+ :itonami.blueprint/social-impact [:connectivity :digital-inclusion :resilience :open-access-infrastructure]
+ :itonami.blueprint/governor :network-provisioning-governor
+ :itonami.blueprint/required-technologies [:optimization :identity :forms :dmn :bpmn :audit-ledger]
+ :itonami.blueprint/optional-technologies [:robotics]
+ :itonami.blueprint/status :public-oss
+ :itonami.blueprint/robotics false
+ :itonami.blueprint/maturity :implemented}
