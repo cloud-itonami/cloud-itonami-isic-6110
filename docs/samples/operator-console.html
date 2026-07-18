@@ -1,0 +1,81 @@
+<html><head><meta charset="utf-8"><title>cloud-itonami-isic-6110 &middot; wired telecommunications activities</title><style>
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.ok { color: #137a3f; }
+body { font-family: system-ui,-apple-system,sans-serif; margin: 0; color: #1a1a1a; background: #fafafa; }
+header.bar { display: flex; align-items: center; gap: 12px; padding: 12px 20px; background: #fff; border-bottom: 1px solid #e5e5e5; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #f0f0f0; }
+h2 { margin-top: 0; font-size: 15px; }
+.warn { color: #b25c00; background: #fff8e1; padding: 2px 6px; border-radius: 4px; }
+main { max-width: 980px; margin: 24px auto; padding: 0 20px; }
+header.bar h1 { font-size: 18px; margin: 0; font-weight: 600; }
+.muted { color: #888; font-size: 13px; }
+.critical { color: #fff; background: #b3261e; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+.card { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.err { color: #b3261e; background: #fbe9e7; padding: 2px 6px; border-radius: 4px; }
+th { font-weight: 600; color: #555; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+header.bar .badge { margin-left: auto; font-size: 12px; color: #666; }
+code { font-size: 12px; background: #f4f4f4; padding: 1px 4px; border-radius: 3px; }
+</style></head><body>
+<header class="bar">
+  <h1>Wired Telecommunications Network Operations (ISIC 6110) — Operator Console</h1>
+  <span class="badge">read-only sample · governor-gated · lightpath provisioning/teardown always human-approved</span>
+</header>
+<main>
+  <section class="card">
+    <h2>Circuit demands</h2>
+    <p class="muted">Demo snapshot — build-time-generated from <code>netops.store</code> via <code>netops.render-html</code> (<code>clojure -M:dev:render-html</code>), regenerated nightly.</p>
+    <table>
+      <thead><tr><th>Demand</th><th>Customer</th><th>Src node</th><th>Dst node</th><th>Jurisdiction</th><th>Lightpath</th><th>Last op status</th></tr></thead>
+      <tbody>
+        <tr><td>req-1</td><td>Sakura Community Network</td><td>tokyo-1</td><td>osaka-1</td><td>JPN</td><td>provisioned &middot; torn down</td><td><span class="ok">committed</span></td></tr>
+        <tr><td>req-2</td><td>Atlantis Co-op</td><td>tokyo-1</td><td>osaka-1</td><td>ATL</td><td>not provisioned</td><td><span class="critical">HARD hold &middot; no-spec-basis</span></td></tr>
+        <tr><td>req-3</td><td>鈴木通信</td><td>tokyo-1</td><td>ghost-pop</td><td>JPN</td><td>not provisioned</td><td><span class="critical">HARD hold &middot; route-endpoints-invalid</span></td></tr>
+        <tr><td>req-4</td><td>田中回線</td><td>tokyo-1</td><td>sapporo-1</td><td>JPN</td><td>not provisioned</td><td><span class="critical">HARD hold &middot; capacity-blocked</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Draft lightpath-provisioning / lightpath-teardown records</h2>
+    <p class="muted">Unsigned drafts only — activating/releasing the real optical circuit is the licensed network operator's own act, outside this actor's authority (see README <code>Actuation</code>).</p>
+    <table>
+      <thead><tr><th>Kind</th><th>Record id</th><th>Demand</th><th>Jurisdiction</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>provisioning</td><td>JPN-PRV-000000</td><td>req-1</td><td>JPN</td><td><span class="ok">immutable draft</span></td></tr>
+        <tr><td>teardown</td><td>JPN-TRN-000000</td><td>req-1</td><td>JPN</td><td><span class="ok">immutable draft</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Action gate (Network Provisioning Governor)</h2>
+    <p class="muted">HARD holds cannot be overridden by a human approver. Right-of-way/carrier-license spec-basis, evidence completeness, live route endpoints and route-capacity are independently recomputed, never trusted from the advisor's proposal; activating or releasing a real optical circuit is always a human network operator's call, at every rollout phase.</p>
+    <table>
+      <thead><tr><th>Op</th><th>Gate</th></tr></thead>
+      <tbody>
+        <tr><td><code>:demand/intake</code></td><td><span class="ok">phase-3 auto-commit when clean, no capital risk yet -- the ONLY auto-eligible op in this domain</span></td></tr>
+        <tr><td><code>:license/verify</code></td><td><span class="warn">ALWAYS human approval &middot; spec-basis independently checked against <code>netops.facts</code>, never fabricated</span></td></tr>
+        <tr><td><code>:route/screen</code></td><td><span class="warn">ALWAYS human approval when clean &middot; a capacity-blocked route (no free DWDM wavelength) is a HARD, un-overridable hold instead</span></td></tr>
+        <tr><td><code>:actuation/provision-lightpath</code></td><td><span class="warn">ALWAYS human approval &middot; activates a real optical circuit &middot; route endpoints independently recomputed against the live topology + double-provisioning guard enforced, never auto at any phase</span></td></tr>
+        <tr><td><code>:actuation/teardown-lightpath</code></td><td><span class="warn">ALWAYS human approval &middot; releases a real optical circuit &middot; double-teardown guard enforced, never auto at any phase</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Audit ledger (this run)</h2>
+    <p class="muted">Append-only decision-fact log — every proposal, hold and commit this scenario produced.</p>
+    <table>
+      <thead><tr><th>Fact</th><th>Op</th><th>Subject</th><th>Basis</th></tr></thead>
+      <tbody>
+        <tr><td>committed</td><td><code>intake</code></td><td>req-1</td><td>id, customer-name</td></tr>
+        <tr><td>committed</td><td><code>verify</code></td><td>req-1</td><td>電気通信事業法 第9条(電気通信事業の登録) / 道路法 第32条(道路占用許可), https://www.soumu.go.jp/</td></tr>
+        <tr><td>committed</td><td><code>screen</code></td><td>req-1</td><td>apn-rwa</td></tr>
+        <tr><td>committed</td><td><code>provision-lightpath</code></td><td>req-1</td><td>req-1</td></tr>
+        <tr><td>committed</td><td><code>teardown-lightpath</code></td><td>req-1</td><td>req-1</td></tr>
+        <tr><td>governor-hold</td><td><code>verify</code></td><td>req-2</td><td>no-spec-basis</td></tr>
+        <tr><td>committed</td><td><code>verify</code></td><td>req-3</td><td>電気通信事業法 第9条(電気通信事業の登録) / 道路法 第32条(道路占用許可), https://www.soumu.go.jp/</td></tr>
+        <tr><td>governor-hold</td><td><code>provision-lightpath</code></td><td>req-3</td><td>route-endpoints-invalid</td></tr>
+        <tr><td>governor-hold</td><td><code>screen</code></td><td>req-4</td><td>capacity-blocked</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body></html>
