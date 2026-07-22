@@ -60,7 +60,35 @@
           :required-evidence ["Betreibermeldung (carrier-notification record)"
                               "Wegerecht-Genehmigung (right-of-way permit)"
                               "Leitungsverlegungsnachweis (circuit-provisioning record)"
-                              "Instandhaltungsprotokoll (facility-maintenance log)"]}})
+                              "Instandhaltungsprotokoll (facility-maintenance log)"]}
+   ;; Spain -- verified 2026-07 directly against BOE-A-2022-10757 (full
+   ;; consolidated text fetched from boe.es) and cnmc.es (both fetched live,
+   ;; no bot-challenge encountered). Ley 11/2022 art. 6.2 confirms Spain uses
+   ;; the EU general-authorization/notification regime (no individual
+   ;; carrier licence) -- verified rather than assumed. cnmc.es's own
+   ;; Registro de Operadores page independently corroborates the same
+   ;; article number and registry role, cross-checking the BOE primary
+   ;; source. Art. 45 (derecho de ocupación del dominio público) is the
+   ;; closest analogue in this law to the other jurisdictions'
+   ;; right-of-way/street-works permit, but note its access guarantee runs
+   ;; to whoever "holds" the public domain in question (typically municipal
+   ;; road authorities), not to CNMC itself -- same pattern as JPN's 道路法
+   ;; road-occupancy permit not being administered by MIC either. A specific
+   ;; universal-service-obligation designee or numbering/interconnection
+   ;; circular citation was considered (per CNMC's own materials, CNMC does
+   ;; run numbering assignment/portability circulars) but is NOT included
+   ;; here: this catalog's fixed map shape has no field for it, and no
+   ;; single verifiable citation for it was pinned down this session --
+   ;; left out rather than guessed at.
+   "ESP" {:name "Spain"
+          :owner-authority "Comisión Nacional de los Mercados y la Competencia (CNMC) / Ministerio de Asuntos Económicos y Transformación Digital (procedimientos de ocupación de dominio público y propiedad)"
+          :legal-basis "Ley 11/2022, de 28 de junio, General de Telecomunicaciones, art. 6.2 (notificación previa al Registro de Operadores; régimen de habilitación general, no licencia individual) / art. 45 (derecho de ocupación del dominio público)"
+          :national-spec "Régimen de habilitación general (notificación, no licencia individual) y derecho de ocupación del dominio público para el despliegue de redes públicas de comunicaciones electrónicas"
+          :provenance "https://www.cnmc.es/sectores-que-regulamos/telecomunicaciones/registro-de-operadores"
+          :required-evidence ["Notificación al Registro de Operadores (carrier-notification record)"
+                              "Derecho de ocupación del dominio público (right-of-way permit)"
+                              "Registro de despliegue de red (circuit-provisioning record)"
+                              "Registro de mantenimiento de instalaciones (facility-maintenance log)"]}})
 
 (defn spec-basis
   "The jurisdiction's requirement map, or nil -- nil means NO spec-basis,
