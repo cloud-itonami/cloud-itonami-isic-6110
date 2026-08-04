@@ -1,0 +1,48 @@
+{
+  "viewId": "open-network.OV-5b",
+  "viewType": "OV-5b",
+  "title": "Operational Activity Model",
+  "did": "did:web:open-network.etzhayyim.com",
+  "format": "json",
+  "content": {
+    "activities": [
+      { "id": "act.defineSite", "name": "Define Site", "type": "xrpc",
+        "realisedBy": [{ "xrpc": "com.etzhayyim.apps.openNetwork.defineSite" }] },
+      { "id": "act.defineLink", "name": "Define Link", "type": "bpmn",
+        "bpmnProcessKey": "defineLink", "source": "bpmn/define-link.bpmn",
+        "realisedBy": [
+          { "xrpc": "com.etzhayyim.apps.openNetwork.defineLink" },
+          { "form": "openNetwork.defineLink.v1" }
+        ] },
+      { "id": "act.recordUtilization", "name": "Record Utilization", "type": "xrpc",
+        "realisedBy": [{ "xrpc": "com.etzhayyim.apps.openNetwork.recordUtilization" }] },
+      { "id": "act.reportIncident", "name": "Report Incident", "type": "xrpc",
+        "realisedBy": [
+          { "xrpc": "com.etzhayyim.apps.openNetwork.reportIncident" },
+          { "dmn":  "openNetwork.incidentSeverity" }
+        ] },
+      { "id": "act.requestChange", "name": "Request Change", "type": "bpmn",
+        "bpmnProcessKey": "requestChange", "source": "bpmn/request-change.bpmn",
+        "realisedBy": [
+          { "xrpc": "com.etzhayyim.apps.openNetwork.requestChange" },
+          { "form": "openNetwork.requestChange.v1" },
+          { "dmn":  "openNetwork.changeRisk" }
+        ] },
+      { "id": "act.queryNetwork", "name": "Query Sites / Links / Utilization / Incidents / Changes", "type": "xrpc",
+        "realisedBy": [
+          { "xrpc": "com.etzhayyim.apps.openNetwork.getSite" },
+          { "xrpc": "com.etzhayyim.apps.openNetwork.listLinks" },
+          { "xrpc": "com.etzhayyim.apps.openNetwork.getLinkUtilization" },
+          { "xrpc": "com.etzhayyim.apps.openNetwork.listIncidents" },
+          { "xrpc": "com.etzhayyim.apps.openNetwork.listChanges" }
+        ] }
+    ]
+  },
+  "refs": {
+    "bpmnProcessKeys": ["defineLink", "requestChange"],
+    "dmnDecisionKeys": ["openNetwork.incidentSeverity", "openNetwork.changeRisk"],
+    "formKeys": ["openNetwork.defineLink.v1", "openNetwork.requestChange.v1"],
+    "viewIds": ["open-network.OV-6a", "open-network.SV-1"]
+  },
+  "version": 1
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/camunda-form/v1",
+  "formKey": "openNetwork.defineLink.v1",
+  "name": "Define Link",
+  "version": 1,
+  "lexiconRef": "com.etzhayyim.apps.openNetwork.defineLink",
+  "components": [
+    { "key": "siteAdid", "label": "Site A DID", "type": "textfield",
+      "validate": { "required": true, "pattern": "^did:[a-z]+:.+" } },
+    { "key": "siteBdid", "label": "Site B DID", "type": "textfield",
+      "validate": { "required": true, "pattern": "^did:[a-z]+:.+" } },
+    { "key": "linkCode", "label": "Link code", "type": "textfield",
+      "validate": { "required": true, "pattern": "^[A-Z0-9-]{2,32}$" } },
+    { "key": "media", "label": "Media", "type": "select",
+      "validate": { "required": true },
+      "values": [
+        { "label": "Fiber",      "value": "fiber" },
+        { "label": "Microwave",  "value": "microwave" },
+        { "label": "Satellite",  "value": "satellite" },
+        { "label": "Copper",     "value": "copper" }
+      ] },
+    { "key": "capacityMbps", "label": "Capacity (Mbps)", "type": "number",
+      "validate": { "required": true, "min": 1 } },
+    { "key": "lengthKm", "label": "Length (km)", "type": "number",
+      "validate": { "min": 0 } }
+  ],
+  "variableMappings": {
+    "siteAdid": "siteAdid", "siteBdid": "siteBdid", "linkCode": "linkCode",
+    "media": "media", "capacityMbps": "capacityMbps", "lengthKm": "lengthKm"
+  }
+}

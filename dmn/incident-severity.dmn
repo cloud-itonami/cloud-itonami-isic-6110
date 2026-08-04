@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:camunda="http://camunda.org/schema/1.0/dmn"
+             id="open-network-incident-severity"
+             name="Incident Severity"
+             namespace="https://etzhayyim.com/dmn/open-network">
+  <decision id="openNetwork.incidentSeverity" name="Incident Severity">
+    <decisionTable id="dt_incidentSeverity" hitPolicy="FIRST">
+      <input id="i_customers" label="customersImpacted">
+        <inputExpression typeRef="number"><text>customersImpacted</text></inputExpression>
+      </input>
+      <input id="i_outage" label="serviceDown">
+        <inputExpression typeRef="boolean"><text>serviceDown</text></inputExpression>
+      </input>
+      <input id="i_dataLoss" label="dataLoss">
+        <inputExpression typeRef="boolean"><text>dataLoss</text></inputExpression>
+      </input>
+
+      <output id="o_severity" label="severity" name="severity" typeRef="string"/>
+      <output id="o_requirePublicNotice" label="requirePublicNotice" name="requirePublicNotice" typeRef="boolean"/>
+
+      <rule id="r1">
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <outputEntry><text>"SEV1"</text></outputEntry>
+        <outputEntry><text>true</text></outputEntry>
+      </rule>
+      <rule id="r2">
+        <inputEntry><text>&gt;= 10000</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"SEV1"</text></outputEntry>
+        <outputEntry><text>true</text></outputEntry>
+      </rule>
+      <rule id="r3">
+        <inputEntry><text>&gt;= 1000</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"SEV2"</text></outputEntry>
+        <outputEntry><text>true</text></outputEntry>
+      </rule>
+      <rule id="r4">
+        <inputEntry><text>&gt;= 100</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"SEV3"</text></outputEntry>
+        <outputEntry><text>false</text></outputEntry>
+      </rule>
+      <rule id="r5">
+        <inputEntry><text>&gt;= 1</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"SEV4"</text></outputEntry>
+        <outputEntry><text>false</text></outputEntry>
+      </rule>
+      <rule id="r6">
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"SEV5"</text></outputEntry>
+        <outputEntry><text>false</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

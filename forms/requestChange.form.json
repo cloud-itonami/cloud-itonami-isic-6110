@@ -1,0 +1,33 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/camunda-form/v1",
+  "formKey": "openNetwork.requestChange.v1",
+  "name": "Request Change",
+  "version": 1,
+  "lexiconRef": "com.etzhayyim.apps.openNetwork.requestChange",
+  "components": [
+    { "key": "title", "label": "Title", "type": "textfield",
+      "validate": { "required": true, "maxLength": 128 } },
+    { "key": "targetDid", "label": "Target DID (site or link)", "type": "textfield",
+      "validate": { "required": true, "pattern": "^did:[a-z]+:.+" } },
+    { "key": "blastRadius", "label": "Blast radius", "type": "select",
+      "validate": { "required": true },
+      "values": [
+        { "label": "Component (port)", "value": "component" },
+        { "label": "Site",             "value": "site" },
+        { "label": "Regional",         "value": "regional" }
+      ] },
+    { "key": "reversible", "label": "Reversible?", "type": "checkbox", "defaultValue": true },
+    { "key": "inMaintenanceWindow", "label": "Within scheduled maintenance window?", "type": "checkbox", "defaultValue": true },
+    { "key": "scheduledStart", "label": "Scheduled start (ISO 8601)", "type": "textfield",
+      "validate": { "required": true } },
+    { "key": "scheduledEnd", "label": "Scheduled end (ISO 8601)", "type": "textfield",
+      "validate": { "required": true } },
+    { "key": "description", "label": "Description / runbook URL", "type": "textarea",
+      "validate": { "maxLength": 4096 } }
+  ],
+  "variableMappings": {
+    "title": "title", "targetDid": "targetDid", "blastRadius": "blastRadius",
+    "reversible": "reversible", "inMaintenanceWindow": "inMaintenanceWindow",
+    "scheduledStart": "scheduledStart", "scheduledEnd": "scheduledEnd", "description": "description"
+  }
+}

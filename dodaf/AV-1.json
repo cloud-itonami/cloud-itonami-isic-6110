@@ -1,0 +1,32 @@
+{
+  "viewId": "open-network.AV-1",
+  "viewType": "AV-1",
+  "title": "Overview and Summary Information",
+  "did": "did:web:open-network.etzhayyim.com",
+  "format": "json",
+  "content": {
+    "purpose": "Provide a DID-addressed network management system (NMS) — site/link topology design + utilization ingest + incident reporting + change request workflow — as an auditable, open-source reference implementation.",
+    "scope": {
+      "in": ["site + link topology", "5-min utilization ingest", "incident severity DMN", "change-request risk DMN"],
+      "out": ["BGP/IPAM/AS routing", "SNMP collector", "ML anomaly detection"]
+    },
+    "architectureDescriptionContext": {
+      "mission": "Provide tamper-evident, DID-native network operations primitives open to any AT Protocol client.",
+      "stakeholders": ["NOC operators", "site owners (DIDs)", "customers", "change-advisory board"],
+      "environment": "Cloudflare Workers + D1",
+      "standards": ["AT Protocol XRPC", "DoDAF v2.02", "BPMN 2.0", "DMN 1.3", "Camunda Forms", "ITIL change-management aligned", "TM Forum SID-aligned naming"]
+    },
+    "toolsAndMethods": [
+      "XRPC Lexicons (com.etzhayyim.apps.openNetwork.*)",
+      "BPMN 2.0 (defineLink, requestChange)",
+      "DMN 1.3 (incidentSeverity, changeRisk)",
+      "Camunda Forms"
+    ],
+    "findings": "Topology = undirected sites + capacity-bearing links sufficient for L1/L2 backbone NMS. SEV/risk DMNs auto-route public notice and CAB approval.",
+    "recommendations": "Add streaming-telemetry sub for sub-minute samples, add path-impact analysis for change risk, integrate IPAM/BGP project."
+  },
+  "refs": {
+    "viewIds": ["open-network.OV-1", "open-network.OV-5b", "open-network.OV-6a", "open-network.CV-2", "open-network.SV-1"]
+  },
+  "version": 1
+}

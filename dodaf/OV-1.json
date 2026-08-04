@@ -1,0 +1,29 @@
+{
+  "viewId": "open-network.OV-1",
+  "viewType": "OV-1",
+  "title": "High-Level Operational Concept Graphic",
+  "did": "did:web:open-network.etzhayyim.com",
+  "format": "json",
+  "content": {
+    "operationalNodes": [
+      { "id": "noc",      "label": "NOC operator (DID)" },
+      { "id": "planner",  "label": "Network planner (DID)" },
+      { "id": "agent",    "label": "Telemetry agent (DID)" },
+      { "id": "network",  "label": "open-network.etzhayyim.com (Worker)" },
+      { "id": "store",    "label": "D1 (sites/links/utilization/incidents/changes SSoT)" },
+      { "id": "pds",      "label": "atproto.etzhayyim.com (PDS, public audit)" },
+      { "id": "cab",      "label": "Change Advisory Board (DID)" }
+    ],
+    "operationalFlows": [
+      { "from": "planner", "to": "network", "label": "XRPC (defineSite / defineLink / requestChange)" },
+      { "from": "noc",     "to": "network", "label": "XRPC (reportIncident / listIncidents)" },
+      { "from": "agent",   "to": "network", "label": "XRPC (recordUtilization)" },
+      { "from": "network", "to": "store",   "label": "INSERT sites / links / utilization / incidents / changes" },
+      { "from": "network", "to": "pds",     "label": "app.bsky.feed.post (SEV1/2 incidents OR HIGH-risk change)" },
+      { "from": "pds",     "to": "cab",     "label": "follow firehose (CAB review)" }
+    ],
+    "narrative": "A planner declares sites and links. Agents emit 5-min utilization. NOC files incidents (severity DMN gates public notice). Changes go through a risk DMN — HIGH risk auto-notifies CAB."
+  },
+  "refs": { "viewIds": ["open-network.SV-1", "open-network.OV-5b"] },
+  "version": 1
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="open-network-request-change"
+                  targetNamespace="https://etzhayyim.com/bpmn/open-network">
+  <bpmn:process id="requestChange" name="Request Change" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_Init" name="Change requested"/>
+    <bpmn:sequenceFlow id="f1" sourceRef="StartEvent_Init" targetRef="Task_CollectChangeForm"/>
+    <bpmn:userTask id="Task_CollectChangeForm" name="Collect change form"
+                   camunda:formKey="openNetwork.requestChange.v1"/>
+    <bpmn:sequenceFlow id="f2" sourceRef="Task_CollectChangeForm" targetRef="Task_AssessRisk"/>
+    <bpmn:businessRuleTask id="Task_AssessRisk" name="Change risk (DMN)"
+                           camunda:decisionRef="openNetwork.changeRisk"/>
+    <bpmn:sequenceFlow id="f3" sourceRef="Task_AssessRisk" targetRef="Task_PersistChange"/>
+    <bpmn:serviceTask id="Task_PersistChange" name="com.etzhayyim.apps.openNetwork.requestChange"
+                      camunda:topic="com.etzhayyim.apps.openNetwork.requestChange"/>
+    <bpmn:sequenceFlow id="f4" sourceRef="Task_PersistChange" targetRef="Gateway_HighRisk"/>
+    <bpmn:exclusiveGateway id="Gateway_HighRisk" name="HIGH risk?" default="f5b"/>
+    <bpmn:sequenceFlow id="f5a" sourceRef="Gateway_HighRisk" targetRef="Task_AuditPost">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${riskLevel == "HIGH"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="f5b" sourceRef="Gateway_HighRisk" targetRef="EndEvent_Submitted"/>
+    <bpmn:serviceTask id="Task_AuditPost" name="Emit app.bsky.feed.post (CAB notice)"
+                      camunda:topic="app.bsky.feed.post"/>
+    <bpmn:sequenceFlow id="f6" sourceRef="Task_AuditPost" targetRef="EndEvent_Submitted"/>
+    <bpmn:endEvent id="EndEvent_Submitted" name="Change submitted"/>
+  </bpmn:process>
+</bpmn:definitions>

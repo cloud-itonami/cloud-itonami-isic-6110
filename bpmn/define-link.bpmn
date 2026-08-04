@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="open-network-define-link"
+                  targetNamespace="https://etzhayyim.com/bpmn/open-network">
+  <bpmn:process id="defineLink" name="Define Link" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_Init" name="Topology design request"/>
+    <bpmn:sequenceFlow id="f1" sourceRef="StartEvent_Init" targetRef="Task_CollectLinkForm"/>
+    <bpmn:userTask id="Task_CollectLinkForm" name="Collect link form"
+                   camunda:formKey="openNetwork.defineLink.v1"/>
+    <bpmn:sequenceFlow id="f2" sourceRef="Task_CollectLinkForm" targetRef="Task_DefineLink"/>
+    <bpmn:serviceTask id="Task_DefineLink" name="com.etzhayyim.apps.openNetwork.defineLink"
+                      camunda:topic="com.etzhayyim.apps.openNetwork.defineLink"/>
+    <bpmn:sequenceFlow id="f3" sourceRef="Task_DefineLink" targetRef="EndEvent_Defined"/>
+    <bpmn:endEvent id="EndEvent_Defined" name="Link defined"/>
+  </bpmn:process>
+</bpmn:definitions>

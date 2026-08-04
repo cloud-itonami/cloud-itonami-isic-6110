@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:camunda="http://camunda.org/schema/1.0/dmn"
+             id="open-network-change-risk"
+             name="Change Risk"
+             namespace="https://etzhayyim.com/dmn/open-network">
+  <decision id="openNetwork.changeRisk" name="Change Risk">
+    <decisionTable id="dt_changeRisk" hitPolicy="FIRST">
+      <input id="i_blast" label="blastRadius">
+        <inputExpression typeRef="string"><text>blastRadius</text></inputExpression>
+      </input>
+      <input id="i_revers" label="reversible">
+        <inputExpression typeRef="boolean"><text>reversible</text></inputExpression>
+      </input>
+      <input id="i_inWindow" label="inMaintenanceWindow">
+        <inputExpression typeRef="boolean"><text>inMaintenanceWindow</text></inputExpression>
+      </input>
+
+      <output id="o_riskLevel" label="riskLevel" name="riskLevel" typeRef="string"/>
+      <output id="o_approverLevel" label="approverLevel" name="approverLevel" typeRef="string"/>
+
+      <rule id="r1">
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"HIGH"</text></outputEntry>
+        <outputEntry><text>"CAB+VP"</text></outputEntry>
+      </rule>
+      <rule id="r2">
+        <inputEntry><text>"regional"</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"HIGH"</text></outputEntry>
+        <outputEntry><text>"CAB+VP"</text></outputEntry>
+      </rule>
+      <rule id="r3">
+        <inputEntry><text>"site"</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <outputEntry><text>"MED"</text></outputEntry>
+        <outputEntry><text>"NOC-Manager"</text></outputEntry>
+      </rule>
+      <rule id="r4">
+        <inputEntry><text>"site"</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>false</text></inputEntry>
+        <outputEntry><text>"HIGH"</text></outputEntry>
+        <outputEntry><text>"CAB+VP"</text></outputEntry>
+      </rule>
+      <rule id="r5">
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"LOW"</text></outputEntry>
+        <outputEntry><text>"Peer-Review"</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

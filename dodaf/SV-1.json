@@ -1,0 +1,40 @@
+{
+  "viewId": "open-network.SV-1",
+  "viewType": "SV-1",
+  "title": "Systems Interface Description",
+  "did": "did:web:open-network.etzhayyim.com",
+  "format": "json",
+  "content": {
+    "systems": [
+      {
+        "id": "sys.worker", "name": "open-network Worker",
+        "platform": "Cloudflare Workers", "entrypoint": "worker/src/app.ts",
+        "interfaces": [
+          { "id": "if.xrpc.defineSite",         "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openNetwork.defineSite" },
+          { "id": "if.xrpc.defineLink",         "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openNetwork.defineLink" },
+          { "id": "if.xrpc.getSite",            "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openNetwork.getSite" },
+          { "id": "if.xrpc.listLinks",          "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openNetwork.listLinks" },
+          { "id": "if.xrpc.recordUtilization",  "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openNetwork.recordUtilization" },
+          { "id": "if.xrpc.getLinkUtilization", "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openNetwork.getLinkUtilization" },
+          { "id": "if.xrpc.reportIncident",     "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openNetwork.reportIncident" },
+          { "id": "if.xrpc.listIncidents",      "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openNetwork.listIncidents" },
+          { "id": "if.xrpc.requestChange",      "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openNetwork.requestChange" },
+          { "id": "if.xrpc.listChanges",        "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openNetwork.listChanges" }
+        ]
+      },
+      { "id": "sys.d1", "name": "Cloudflare D1 (SQLite)", "platform": "D1",
+        "tables": ["sites", "links", "utilization", "incidents", "changes"] },
+      { "id": "sys.pds",  "name": "atproto.etzhayyim.com PDS", "platform": "Service binding",
+        "interfaces": [{ "id": "if.pds.post", "kind": "wRPC", "method": "app.bsky.feed.post" }] },
+      { "id": "sys.auth", "name": "auth.etzhayyim.com", "platform": "Service binding",
+        "interfaces": [{ "id": "if.auth.resolveCaller", "kind": "wRPC", "method": "resolveCallerDid" }] }
+    ],
+    "connections": [
+      { "from": "sys.worker", "to": "sys.d1",   "protocol": "D1 binding" },
+      { "from": "sys.worker", "to": "sys.pds",  "protocol": "Service binding (wRPC)" },
+      { "from": "sys.worker", "to": "sys.auth", "protocol": "Service binding (wRPC)" }
+    ]
+  },
+  "refs": { "viewIds": ["open-network.OV-1", "open-network.CV-2"] },
+  "version": 1
+}

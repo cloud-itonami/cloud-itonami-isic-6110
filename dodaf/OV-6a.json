@@ -1,0 +1,48 @@
+{
+  "viewId": "open-network.OV-6a",
+  "viewType": "OV-6a",
+  "title": "Operational Rules Model",
+  "did": "did:web:open-network.etzhayyim.com",
+  "format": "json",
+  "content": {
+    "businessRules": [
+      {
+        "id": "rule.linkBidirectional",
+        "statement": "Every link connects two distinct sites. siteAdid ≠ siteBdid. Capacity is symmetric unless explicitly asymmetric.",
+        "kind": "constraint",
+        "enforcedBy": "worker/src/app.ts:defineLink() validation"
+      },
+      {
+        "id": "rule.utilizationCapacityCap",
+        "statement": "Per-sample inMbps and outMbps MUST be ≤ link capacityMbps × 1.05 (5% measurement tolerance). Excess is recorded with an alarm flag.",
+        "kind": "invariant",
+        "enforcedBy": "worker/src/app.ts:recordUtilization() validation"
+      },
+      {
+        "id": "rule.incidentSeverity",
+        "statement": "incident.severity from openNetwork.incidentSeverity DMN: dataLoss → SEV1; ≥10k+down → SEV1; ≥1k+down → SEV2; ≥100 → SEV3; ≥1 → SEV4; else SEV5. SEV1/SEV2 → public notice.",
+        "kind": "decisionTable",
+        "dmnDecisionKey": "openNetwork.incidentSeverity",
+        "source": "dmn/incident-severity.dmn"
+      },
+      {
+        "id": "rule.changeRisk",
+        "statement": "change.riskLevel from openNetwork.changeRisk DMN: irreversible OR blastRadius ≥ regional → HIGH (CAB+VP); reversible AND blastRadius=site → MED (NOC manager); else LOW (peer review). HIGH → public CAB notice.",
+        "kind": "decisionTable",
+        "dmnDecisionKey": "openNetwork.changeRisk",
+        "source": "dmn/change-risk.dmn"
+      },
+      {
+        "id": "rule.appendOnlyHistory",
+        "statement": "Incidents and change-requests are append-only. Status transitions create a new event referencing the original via supersedes.",
+        "kind": "invariant",
+        "enforcedBy": "no UPDATE on incidents/changes core fields"
+      }
+    ]
+  },
+  "refs": {
+    "dmnDecisionKeys": ["openNetwork.incidentSeverity", "openNetwork.changeRisk"],
+    "viewIds": ["open-network.OV-5b"]
+  },
+  "version": 1
+}

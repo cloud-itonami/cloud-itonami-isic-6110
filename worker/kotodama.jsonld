@@ -1,0 +1,57 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:open-network.etzhayyim.com",
+  "name": "open-network",
+  "handle": "open-network.etzhayyim.com",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "project": "open-network",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open Network agent. You manage telecom NMS topology design (sites + links), telemetry ingest, incident reporting, and change-management workflow. Apply ITIL-aligned rules: severity DMN gates public notice, change risk DMN gates CAB approval.",
+  "governance": {
+    "raci": "responsible",
+    "classification": "operations",
+    "complianceFrameworks": ["itil-change-mgmt", "tm-forum-sid-aligned", "etzhayyim-ops-policy"]
+  },
+  "profile": {
+    "displayName": "ETZHAYYIM Open Network",
+    "description": "Open-source telecom NMS reference implementation — site/link topology design + utilization ingest + incident + change management.",
+    "avatar": "🌐",
+    "category": "telecom",
+    "isBot": true,
+    "operator": "etzhayyim.com",
+    "agentType": "autonomous",
+    "capabilities": [
+      "site-define",
+      "link-define",
+      "site-query",
+      "utilization-ingest",
+      "incident-report",
+      "incident-severity-decisioning",
+      "change-request",
+      "change-risk-decisioning"
+    ]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "com.etzhayyim.apps.openNetwork.site",
+        "com.etzhayyim.apps.openNetwork.link",
+        "com.etzhayyim.apps.openNetwork.utilization",
+        "com.etzhayyim.apps.openNetwork.incident",
+        "com.etzhayyim.apps.openNetwork.change"
+      ]
+    }
+  },
+  "space": {
+    "name": "ETZHAYYIM Open Network",
+    "description": "Open-source telecom NMS reference implementation",
+    "joinRule": "public",
+    "historyVisibility": "world-readable",
+    "convos": [
+      { "name": "noc-ops", "kind": "public",
+        "description": "Public operational events (topology changes, SEV1/2 incidents, HIGH-risk CAB notices)",
+        "default": true }
+    ]
+  }
+}
