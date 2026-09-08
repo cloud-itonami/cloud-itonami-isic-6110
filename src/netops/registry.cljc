@@ -26,7 +26,7 @@
   lightpath itself (that is `netops.operation`'s :actuation/provision-
   lightpath / :actuation/teardown-lightpath, always human-gated -- see
   README `Actuation`)."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [apn.model :as apn-model]))
 
 (defn- unsigned-certificate
@@ -68,7 +68,7 @@
     (throw (ex-info "lightpath-provisioning: jurisdiction required" {})))
   (when (< sequence 0)
     (throw (ex-info "lightpath-provisioning: sequence must be >= 0" {})))
-  (let [provisioning-number (str (str/upper-case jurisdiction) "-PRV-" (zero-pad sequence 6))
+  (let [provisioning-number (str (str/upper jurisdiction) "-PRV-" (zero-pad sequence 6))
         record {"record_id" provisioning-number
                 "kind" "lightpath-provisioning-draft"
                 "demand_id" demand-id
@@ -94,7 +94,7 @@
     (throw (ex-info "lightpath-teardown: jurisdiction required" {})))
   (when (< sequence 0)
     (throw (ex-info "lightpath-teardown: sequence must be >= 0" {})))
-  (let [teardown-number (str (str/upper-case jurisdiction) "-TRN-" (zero-pad sequence 6))
+  (let [teardown-number (str (str/upper jurisdiction) "-TRN-" (zero-pad sequence 6))
         record {"record_id" teardown-number
                 "kind" "lightpath-teardown-draft"
                 "demand_id" demand-id
