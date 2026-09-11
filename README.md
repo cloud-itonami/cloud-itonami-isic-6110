@@ -122,14 +122,14 @@ not a deployment" split `kotoba-lang/apn`'s own README describes.
 
 | File | Role |
 |---|---|
-| `src/netops/store.cljc` | **Store** protocol -- `MemStore` (R0; see its ns docstring for the deferred `DatomicStore` scope note) + append-only audit ledger + the live `apn.model` network topology. |
-| `src/netops/registry.cljc` | Lightpath-provisioning / lightpath-teardown draft records + the independent `route-endpoints-missing?` ground-truth check. |
-| `src/netops/facts.cljc` | Per-jurisdiction right-of-way/carrier-license catalog with an official spec-basis citation per entry, honest coverage reporting. |
-| `src/netops/advisor.cljc` | **Network Advisor** -- `mock-advisor` ‖ `llm-advisor`; drafts intake normalization, license-verification checklists, route-capacity screenings (by actually running `apn.rwa/assign`), and the two actuation proposals. |
-| `src/netops/governor.cljc` | **Network Provisioning Governor** -- 4 HARD checks (spec-basis, evidence-incomplete, route-endpoints-invalid, capacity-blocked) + 2 double-actuation guards + 1 soft (confidence/actuation gate). |
-| `src/netops/phase.cljc` | **Phase 0→3** -- read-only → assisted intake → assisted verify → supervised auto (demand/intake only; actuation never auto). |
-| `src/netops/operation.cljc` | **OperationActor** -- langgraph StateGraph (intake→advise→govern→decide→[commit\|request-approval→commit\|hold]). |
-| `src/netops/sim.cljc` | demo driver. |
+| `src/netops/store.cljk` | **Store** protocol -- `MemStore` (R0; see its ns docstring for the deferred `DatomicStore` scope note) + append-only audit ledger + the live `apn.model` network topology. |
+| `src/netops/registry.cljk` | Lightpath-provisioning / lightpath-teardown draft records + the independent `route-endpoints-missing?` ground-truth check. |
+| `src/netops/facts.cljk` | Per-jurisdiction right-of-way/carrier-license catalog with an official spec-basis citation per entry, honest coverage reporting. |
+| `src/netops/advisor.cljk` | **Network Advisor** -- `mock-advisor` ‖ `llm-advisor`; drafts intake normalization, license-verification checklists, route-capacity screenings (by actually running `apn.rwa/assign`), and the two actuation proposals. |
+| `src/netops/governor.cljk` | **Network Provisioning Governor** -- 4 HARD checks (spec-basis, evidence-incomplete, route-endpoints-invalid, capacity-blocked) + 2 double-actuation guards + 1 soft (confidence/actuation gate). |
+| `src/netops/phase.cljk` | **Phase 0→3** -- read-only → assisted intake → assisted verify → supervised auto (demand/intake only; actuation never auto). |
+| `src/netops/operation.cljk` | **OperationActor** -- langgraph StateGraph (intake→advise→govern→decide→[commit\|request-approval→commit\|hold]). |
+| `src/netops/sim.cljk` | demo driver. |
 | `test/netops/*_test.clj` | governor contract · phase invariants · store · registry conformance · facts coverage |
 
 ## Business-process coverage (honest)
