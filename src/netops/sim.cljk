@@ -1,5 +1,5 @@
 (ns netops.sim
-  "Demo driver -- `clojure -M:dev:run`. Walks a clean demand through
+  "Demo driver -- `kbb -M:dev:run`. Walks a clean demand through
   intake -> right-of-way/license verification -> route-capacity
   screening -> lightpath-provisioning proposal (always escalates) ->
   human approval -> commit, then through lightpath-teardown proposal

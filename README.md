@@ -95,9 +95,9 @@ structurally, not by convention.
 ## Run
 
 ```bash
-clojure -M:dev:run     # walk one clean demand through intake->license->screen->provision->teardown + four HARD-hold cases
-clojure -M:dev:test    # governor contract · phase invariants · store · registry · facts coverage
-clojure -M:lint        # clj-kondo (errors fail; CI mirrors this)
+kbb -M:dev:run     # walk one clean demand through intake->license->screen->provision->teardown + four HARD-hold cases
+kbb -M:dev:test    # governor contract · phase invariants · store · registry · facts coverage
+kbb -M:lint        # clj-kondo (errors fail; CI mirrors this)
 ```
 
 ## Open business
