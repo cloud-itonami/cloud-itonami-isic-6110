@@ -2,7 +2,7 @@
 
 ## Standing this up
 
-1. `clojure -M:dev:test` -- confirm the governor contract passes in your
+1. `kbb -M:dev:test` -- confirm the governor contract passes in your
    checkout before touching anything.
 2. Replace `netops.store/seed-db`'s demo topology and demand set with
    your real network (see `apn.model`'s README for the builder API) and

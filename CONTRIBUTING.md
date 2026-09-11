@@ -11,12 +11,12 @@ The capability layer this actor wraps lives in
 policy, and operator contracts.
 
 ```bash
-clojure -M:dev:test    # this repo's own test suite
-clojure -M:lint
+kbb -M:dev:test    # this repo's own test suite
+kbb -M:lint
 
 # in kotoba-lang/apn:
-clojure -M:test
-clojure -M:lint
+kbb -M:test
+kbb -M:lint
 ```
 
 Keep changes small and include tests for governor checks, phase gating,
