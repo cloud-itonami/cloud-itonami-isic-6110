@@ -3,7 +3,7 @@
   see netops.store's ns docstring for why there is no cross-backend
   contract test (yet) the way cloud-itonami-isic-6190's telecom.store-
   contract-test proves MemStore ≡ DatomicStore."
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.test :refer [deftest is]]
             [apn.model :as m]
             [netops.store :as store]))
 
