@@ -1,5 +1,5 @@
 (ns netops.phase-test
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.test :refer [deftest is]]
             [netops.phase :as phase]))
 
 (deftest gate-hold-always-stays-hold
