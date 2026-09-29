@@ -6,7 +6,7 @@
   R0 SCOPE NOTE: unlike most siblings (e.g. cloud-itonami-isic-6190's
   `telecom.store`, which ships both `MemStore` and a `DatomicStore`
   backed by `langchain.db`), this actor ships `MemStore` ONLY for now.
-  The dual-backend `:db-api` seam (Actors playbook, root CLAUDE.md)
+  The dual-backend `:db-api` seam (Actors playbook, root AGENTS.md)
   still applies architecturally -- the `Store` protocol below is written
   so a `DatomicStore` can be added later without touching the governor,
   advisor or StateGraph -- but writing and proving a second backend
